@@ -1,0 +1,38 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.6'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'io.freefair.lombok' version '6.3.0' // delombok [rj.added 2020.04.18]
+}
+
+apply plugin: "eclipse"
+apply plugin: "project-report"
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+configurations.all {
+	exclude module: 'spring-boot-starter-logging' // to replace with log4j2 and fix the exception Exception in thread "main" java.lang.StackOverflowError at org.apache.logging.log4j.util.StackLocator.getCallerClass(StackLocator.java:112)
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation platform("org.apache.logging.log4j:log4j-bom:2.17.2")
+	implementation ('com.lmax:disruptor:3.4.2')	 // For Log4J2 Async Logging	
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+defaultTasks 'clean', 'eclipse', 'build', 'htmlDependencyReport'
