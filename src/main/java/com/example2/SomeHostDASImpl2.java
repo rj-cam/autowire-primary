@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @Service
+//@Scope(scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class SomeHostDASImpl2 implements SomeHostDAS {
 
    @Override

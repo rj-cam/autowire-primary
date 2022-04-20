@@ -28,11 +28,11 @@ class AutowirePrimaryApplicationWorkingTests {
       BeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(SomeHostDASImpl2.class).setPrimary(true).setAutowireMode(AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE).getBeanDefinition();
       BeanDefinitionRegistry.class.cast(ctx).registerBeanDefinition("someHostDASImpl2", beanDefinition);
 
-      log.info("[contextLoads] After Registering New Bean Definition ----------------------------------------------------------------------------------------\n{}", beanDefinition);
+      log.info("[working] After Registering New Bean Definition ----------------------------------------------------------------------------------------\n{}", beanDefinition);
       SomeHostDAS hostBean = ctx.getBean(SomeHostDAS.class);
       assertInstanceOf(SomeHostDASImpl2.class, hostBean);
       SomeBusinessService businessBean = ctx.getBean(SomeBusinessService.class);
-      log.info("[contextLoads] hostBean = {}, businessBean = {}", hostBean, businessBean);
+      log.info("[working] hostBean = {}, businessBean = {}", hostBean, businessBean);
       businessBean.execute();
       assertInstanceOf(SomeHostDASImpl2.class, businessBean.getHostDAS());
    }
